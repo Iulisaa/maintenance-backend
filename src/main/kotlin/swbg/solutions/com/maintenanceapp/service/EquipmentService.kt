@@ -11,7 +11,6 @@ import swbg.solutions.com.maintenanceapp.repository.EquipmentRepository
 import swbg.solutions.com.maintenanceapp.repository.MaintenanceRuleRepository
 import java.util.*
 
-
 @Service
 class EquipmentService(
     private val equipmentRepository: EquipmentRepository,
