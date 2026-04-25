@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: maintenance-app
+
+  datasource:
+    url: jdbc:postgresql://localhost:5001/maintenance_app
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: false
+
+  flyway:
+    enabled: true
+
+  mail:
+    host: localhost
+    port: 1025
+    username: ""
+    password: ""
+
+app:
+  maintenance:
+    season-active-months:

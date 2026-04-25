@@ -1,0 +1,41 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Logs
+*.log
+
+# Env files
+.env
+.env.*
+!.env.example
+
+
+# Backend Java/Kotlin
+backend/build/
+backend/target/
+backend/.gradle/
+backend/out/
+
+# Gradle
+.gradle/
+
+# Maven
+target/
+
+# Generated files
+*.class
+
+# Docker local
+docker-compose.override.yml
+
+# Secrets
+*.pem
+*.key
+*.p12
+*.jks

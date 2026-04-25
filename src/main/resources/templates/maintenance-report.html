@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <style>
+        @page {
+            size: A4;
+            margin: 22mm 18mm 20mm 18mm;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            color: #111827;
+            line-height: 1.45;
+            margin: 0;
+            background: #ffffff;
+        }
+
+        .document {
+            width: 100%;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: table;
+            width: 100%;
+            margin-bottom: 22px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid #111827;
+        }
+
+        .header-left,
+        .header-right {
+            display: table-cell;
+            vertical-align: top;
+        }
+
+        .header-left {
+            width: 62%;
+        }
+
+        .header-right {
+            width: 38%;
+            text-align: right;
+        }
+
+        .company-name {
+            margin: 0;
+            color: #111827;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: -0.2px;
+        }
+
+        .company-meta {
+            margin-top: 4px;
+            color: #4b5563;
+            font-size: 10.5px;
+        }
+
+        .document-code {
+            display: inline-block;
+            padding: 6px 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background: #f9fafb;
+            color: #374151;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .title-block {
+            margin-bottom: 18px;
+            text-align: center;
+        }
+
+        .title-block h1 {
+            margin: 0;
+            color: #111827;
+            font-size: 21px;
+            font-weight: bold;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .title-block p {
+            margin: 5px 0 0;
+            color: #6b7280;
+            font-size: 10.5px;
+        }
+
+        .summary {
+            display: table;
+            width: 100%;
+            margin-bottom: 18px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: #f9fafb;
+        }
+
+        .summary-item {
+            display: table-cell;
+            width: 33.33%;
+            padding: 12px 14px;
+            border-right: 1px solid #d1d5db;
+            vertical-align: top;
+        }
+
+        .summary-item:last-child {
+            border-right: none;
+        }
+
+        .summary-label {
+            display: block;
+            margin-bottom: 5px;
+            color: #6b7280;
+            font-size: 9.5px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .summary-value {
+            display: block;
+            color: #111827;
+            font-size: 11px;
+            font-weight: bold;
+            word-break: break-word;
+        }
+
+        .section {
+            margin-bottom: 16px;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            margin-bottom: 8px;
+            padding: 7px 10px;
+            border-left: 4px solid #111827;
+            background: #f3f4f6;
+            color: #111827;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #d1d5db;
+        }
+
+        .info-table td {
+            padding: 9px 11px;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+
+        .info-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .info-table .label {
+            width: 34%;
+            background: #f9fafb;
+            color: #374151;
+            font-weight: bold;
+        }
+
+        .info-table .value {
+            color: #111827;
+        }
+
+        .statement-box {
+            padding: 12px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: #ffffff;
+        }
+
+        .statement {
+            margin: 0;
+            color: #374151;
+            text-align: justify;
+        }
+
+        .result-line {
+            margin-top: 12px;
+        }
+
+        .result-label {
+            color: #374151;
+            font-weight: bold;
+        }
+
+        .result-badge {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 5px 12px;
+            border: 1px solid #111827;
+            border-radius: 999px;
+            background: #111827;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .observations-box {
+            min-height: 100px;
+            padding: 12px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: #ffffff;
+            color: #111827;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .notice-box {
+            padding: 11px 13px;
+            border: 1px solid #d1d5db;
+            border-left: 4px solid #111827;
+            border-radius: 8px;
+            background: #f9fafb;
+            color: #374151;
+            text-align: justify;
+        }
+
+        .signatures {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+            margin-top: 42px;
+            page-break-inside: avoid;
+        }
+
+        .signature {
+            display: table-cell;
+            width: 50%;
+            vertical-align: top;
+        }
+
+        .signature:first-child {
+            padding-right: 24px;
+        }
+
+        .signature:last-child {
+            padding-left: 24px;
+        }
+
+        .signature-line {
+            border-top: 1px solid #111827;
+            padding-top: 8px;
+            color: #374151;
+            font-size: 10.5px;
+            text-align: center;
+        }
+
+        .signature-helper {
+            margin-top: 4px;
+            color: #9ca3af;
+            font-size: 9px;
+            text-align: center;
+        }
+
+        .footer-note {
+            margin-top: 28px;
+            padding-top: 10px;
+            border-top: 1px solid #e5e7eb;
+            color: #6b7280;
+            font-size: 9.5px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+<div class="document">
+
+    <div class="header">
+        <div class="header-left">
+            <p class="company-name">Sweetbug Solutions S.R.L</p>
+            <div class="company-meta">
+                Maintenance Planning &amp; Field Service Documentation
+            </div>
+        </div>
+
+        <div class="header-right">
+            <span class="document-code">MAINTENANCE REPORT</span>
+        </div>
+    </div>
+
+    <div class="title-block">
+        <h1>Proces Verbal de Mentenanta</h1>
+        <p>Raport de verificare si mentenanta echipament</p>
+    </div>
+
+    <div class="summary">
+        <div class="summary-item">
+            <span class="summary-label">Task ID</span>
+            <span class="summary-value" th:text="${task.id}">-</span>
+        </div>
+
+        <div class="summary-item">
+            <span class="summary-label">Data programata</span>
+            <span class="summary-value" th:text="${task.scheduledDate}">-</span>
+        </div>
+
+        <div class="summary-item">
+            <span class="summary-label">Data efectuarii</span>
+            <span class="summary-value" th:text="${report.performedAt}">-</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">1. Date echipament</div>
+
+        <table class="info-table">
+            <tr>
+                <td class="label">Denumire echipament</td>
+                <td class="value" th:text="${task.equipment.name}">-</td>
+            </tr>
+            <tr>
+                <td class="label">Cod echipament</td>
+                <td class="value" th:text="${task.equipment.code}">-</td>
+            </tr>
+            <tr th:if="${task.equipment.serialNumber != null}">
+                <td class="label">Serie echipament</td>
+                <td class="value" th:text="${task.equipment.serialNumber}">-</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-title">2. Executant verificare</div>
+
+        <table class="info-table">
+            <tr>
+                <td class="label">Inginer / tehnician</td>
+                <td class="value" th:text="${task.assignedEngineer.fullName}">-</td>
+            </tr>
+            <tr th:if="${task.assignedEngineer.email != null}">
+                <td class="label">Email</td>
+                <td class="value" th:text="${task.assignedEngineer.email}">-</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-title">3. Constatare si rezultat</div>
+
+        <div class="statement-box">
+            <p class="statement">
+                Subsemnatul, reprezentant al Sweetbug Solutions S.R.L, confirm efectuarea verificarii
+                de mentenanta pentru echipamentul mentionat in prezentul document, conform planificarii
+                si regulilor aplicabile de intretinere.
+            </p>
+
+            <div class="result-line">
+                <span class="result-label">Rezultat verificare:</span>
+                <span class="result-badge" th:text="${report.result}">-</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">4. Observatii</div>
+
+        <div class="observations-box" th:text="${report.observations}">
+            Observatiile completate vor aparea aici.
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">5. Mentiuni finale</div>
+
+        <div class="notice-box">
+            Prezentul proces verbal a fost generat electronic pe baza datelor introduse in aplicatia
+            de mentenanta. Documentul confirma efectuarea verificarii pentru task-ul identificat mai sus
+            si poate fi utilizat ca dovada interna a interventiei.
+        </div>
+    </div>
+
+    <div class="signatures">
+        <div class="signature">
+            <div class="signature-line">Semnatura inginer / tehnician</div>
+            <div class="signature-helper">Nume, semnatura si data</div>
+        </div>
+
+        <div class="signature">
+            <div class="signature-line">Semnatura beneficiar / reprezentant</div>
+            <div class="signature-helper">Nume, semnatura si data</div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>
