@@ -1,23 +1,33 @@
 package swbg.solutions.com.maintenanceapp.dto
 
 import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
-import jakarta.validation.constraints.Size
+import swbg.solutions.com.maintenanceapp.entity.InspectionResult
 import java.time.LocalDateTime
+import java.util.*
 
 data class CompleteTaskRequest(
     @field:NotBlank
-    @field:Size(max = 5000)
     val observations: String,
-
     @field:NotNull
-    val result: MaintenanceResult,
-
-    val performedAt: LocalDateTime? = null
+    val result: InspectionResult,
+    val performedAt: LocalDateTime? = null,
+    val reportTemplateCode: String = "DEFAULT"
 )
 
-enum class MaintenanceResult {
-    PASSED,
-    FAILED,
-    REQUIRES_FOLLOW_UP
-}
+data class CompleteTasksRequest(
+    @field:NotEmpty
+    val items: List<CompleteTaskItemRequest>,
+    val performedAt: LocalDateTime? = null,
+    val reportTemplateCode: String = "DEFAULT"
+)
+
+data class CompleteTaskItemRequest(
+    @field:NotNull
+    val taskId: UUID,
+    @field:NotBlank
+    val observations: String,
+    @field:NotNull
+    val result: InspectionResult
+)

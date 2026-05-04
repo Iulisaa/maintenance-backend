@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8" />
     <style>
         @page {
             size: A4;
-            margin: 22mm 18mm 20mm 18mm;
+            margin: 18mm 16mm 18mm 16mm;
         }
 
         * {
@@ -13,271 +13,226 @@
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: Arial, sans-serif;
             font-size: 12px;
             color: #111827;
             line-height: 1.45;
             margin: 0;
-            background: #ffffff;
         }
 
         .document {
             width: 100%;
-            max-width: 680px;
-            margin: 0 auto;
         }
 
         .header {
-            display: table;
             width: 100%;
-            margin-bottom: 22px;
-            padding-bottom: 14px;
             border-bottom: 2px solid #111827;
-        }
-
-        .header-left,
-        .header-right {
-            display: table-cell;
-            vertical-align: top;
-        }
-
-        .header-left {
-            width: 62%;
-        }
-
-        .header-right {
-            width: 38%;
-            text-align: right;
-        }
-
-        .company-name {
-            margin: 0;
-            color: #111827;
-            font-size: 18px;
-            font-weight: bold;
-            letter-spacing: -0.2px;
-        }
-
-        .company-meta {
-            margin-top: 4px;
-            color: #4b5563;
-            font-size: 10.5px;
-        }
-
-        .document-code {
-            display: inline-block;
-            padding: 6px 10px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            background: #f9fafb;
-            color: #374151;
-            font-size: 10px;
-            font-weight: bold;
-        }
-
-        .title-block {
+            padding-bottom: 12px;
             margin-bottom: 18px;
-            text-align: center;
         }
 
-        .title-block h1 {
-            margin: 0;
-            color: #111827;
-            font-size: 21px;
-            font-weight: bold;
-            letter-spacing: 0.3px;
-            text-transform: uppercase;
-        }
-
-        .title-block p {
-            margin: 5px 0 0;
-            color: #6b7280;
-            font-size: 10.5px;
-        }
-
-        .summary {
-            display: table;
+        .header-table {
             width: 100%;
-            margin-bottom: 18px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            background: #f9fafb;
+            border-collapse: collapse;
         }
 
-        .summary-item {
-            display: table-cell;
-            width: 33.33%;
-            padding: 12px 14px;
-            border-right: 1px solid #d1d5db;
+        .header-table td {
+            border: none;
+            padding: 0;
             vertical-align: top;
         }
 
-        .summary-item:last-child {
-            border-right: none;
-        }
-
-        .summary-label {
-            display: block;
-            margin-bottom: 5px;
-            color: #6b7280;
-            font-size: 9.5px;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .summary-value {
-            display: block;
+        .company-title {
+            font-size: 18px;
+            font-weight: 700;
             color: #111827;
+            margin: 0 0 4px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .company-subtitle {
+            margin: 0;
+            color: #4b5563;
             font-size: 11px;
-            font-weight: bold;
-            word-break: break-word;
+        }
+
+        .report-badge {
+            text-align: right;
+            font-size: 11px;
+            color: #374151;
+        }
+
+        .report-number {
+            display: inline-block;
+            margin-top: 4px;
+            padding: 6px 10px;
+            border: 1px solid #111827;
+            border-radius: 4px;
+            font-weight: 700;
+            color: #111827;
+            background: #f9fafb;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 20px;
+            margin: 18px 0 8px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #4b5563;
+            margin: 0 0 18px 0;
+            font-size: 12px;
         }
 
         .section {
-            margin-bottom: 16px;
+            margin-top: 16px;
             page-break-inside: avoid;
         }
 
         .section-title {
-            margin-bottom: 8px;
-            padding: 7px 10px;
-            border-left: 4px solid #111827;
-            background: #f3f4f6;
-            color: #111827;
-            font-size: 11px;
-            font-weight: bold;
-            letter-spacing: 0.3px;
+            font-size: 13px;
+            font-weight: 700;
             text-transform: uppercase;
+            color: #111827;
+            margin: 0 0 8px 0;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #d1d5db;
         }
 
         .info-table {
             width: 100%;
             border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        .info-table th,
+        .info-table td {
             border: 1px solid #d1d5db;
+            padding: 8px;
+            vertical-align: top;
+        }
+
+        .info-table th {
+            width: 26%;
+            background: #f3f4f6;
+            color: #374151;
+            text-align: left;
+            font-weight: 700;
         }
 
         .info-table td {
-            padding: 9px 11px;
-            border-bottom: 1px solid #e5e7eb;
-            vertical-align: top;
-        }
-
-        .info-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .info-table .label {
-            width: 34%;
-            background: #f9fafb;
-            color: #374151;
-            font-weight: bold;
-        }
-
-        .info-table .value {
+            background: #ffffff;
             color: #111827;
         }
 
-        .statement-box {
-            padding: 12px 14px;
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+            font-size: 11px;
+        }
+
+        .items-table th,
+        .items-table td {
             border: 1px solid #d1d5db;
-            border-radius: 8px;
-            background: #ffffff;
+            padding: 7px;
+            vertical-align: top;
         }
 
-        .statement {
-            margin: 0;
-            color: #374151;
-            text-align: justify;
-        }
-
-        .result-line {
-            margin-top: 12px;
-        }
-
-        .result-label {
-            color: #374151;
-            font-weight: bold;
-        }
-
-        .result-badge {
-            display: inline-block;
-            margin-left: 8px;
-            padding: 5px 12px;
-            border: 1px solid #111827;
-            border-radius: 999px;
+        .items-table th {
             background: #111827;
             color: #ffffff;
-            font-size: 10px;
-            font-weight: bold;
-            text-transform: uppercase;
+            text-align: left;
+            font-weight: 700;
         }
 
-        .observations-box {
-            min-height: 100px;
-            padding: 12px 14px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            background: #ffffff;
-            color: #111827;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-
-        .notice-box {
-            padding: 11px 13px;
-            border: 1px solid #d1d5db;
-            border-left: 4px solid #111827;
-            border-radius: 8px;
+        .items-table tbody tr:nth-child(even) td {
             background: #f9fafb;
+        }
+
+        .result {
+            display: inline-block;
+            padding: 3px 7px;
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: 1px solid #d1d5db;
+        }
+
+        .result-passed {
+            color: #166534;
+            background: #dcfce7;
+            border-color: #86efac;
+        }
+
+        .result-failed {
+            color: #991b1b;
+            background: #fee2e2;
+            border-color: #fca5a5;
+        }
+
+        .result-follow-up {
+            color: #92400e;
+            background: #fef3c7;
+            border-color: #fcd34d;
+        }
+
+        .observation-box {
+            min-height: 42px;
+            white-space: pre-line;
+        }
+
+        .declaration {
+            border: 1px solid #d1d5db;
+            background: #f9fafb;
+            padding: 10px 12px;
+            margin-top: 10px;
             color: #374151;
-            text-align: justify;
+            font-size: 11.5px;
         }
 
-        .signatures {
-            display: table;
+        .signature-table {
             width: 100%;
-            table-layout: fixed;
-            margin-top: 42px;
-            page-break-inside: avoid;
+            border-collapse: collapse;
+            margin-top: 36px;
         }
 
-        .signature {
-            display: table-cell;
+        .signature-table td {
             width: 50%;
+            border: none;
+            padding: 0 18px 0 0;
             vertical-align: top;
         }
 
-        .signature:first-child {
-            padding-right: 24px;
-        }
-
-        .signature:last-child {
-            padding-left: 24px;
-        }
-
-        .signature-line {
-            border-top: 1px solid #111827;
-            padding-top: 8px;
-            color: #374151;
-            font-size: 10.5px;
-            text-align: center;
-        }
-
-        .signature-helper {
-            margin-top: 4px;
-            color: #9ca3af;
-            font-size: 9px;
-            text-align: center;
-        }
-
-        .footer-note {
+        .signature-box {
             margin-top: 28px;
-            padding-top: 10px;
-            border-top: 1px solid #e5e7eb;
+            border-top: 1px solid #111827;
+            padding-top: 6px;
+            font-size: 11px;
+            color: #374151;
+        }
+
+        .footer {
+            margin-top: 24px;
+            padding-top: 8px;
+            border-top: 1px solid #d1d5db;
+            font-size: 10px;
             color: #6b7280;
-            font-size: 9.5px;
             text-align: center;
+        }
+
+        .muted {
+            color: #6b7280;
+        }
+
+        .nowrap {
+            white-space: nowrap;
         }
     </style>
 </head>
@@ -286,121 +241,168 @@
 <div class="document">
 
     <div class="header">
-        <div class="header-left">
-            <p class="company-name">Sweetbug Solutions S.R.L</p>
-            <div class="company-meta">
-                Maintenance Planning &amp; Field Service Documentation
-            </div>
-        </div>
-
-        <div class="header-right">
-            <span class="document-code">MAINTENANCE REPORT</span>
-        </div>
+        <table class="header-table">
+            <tr>
+                <td>
+                    <p class="company-title">KYS Maintenance</p>
+                    <p class="company-subtitle">Evidenta verificari si interventii echipamente</p>
+                </td>
+                <td class="report-badge">
+                    <div>Numar document</div>
+                    <div class="report-number" th:text="${report.reportNumber}">Proces-Verbal-KYS-01052026</div>
+                </td>
+            </tr>
+        </table>
     </div>
 
-    <div class="title-block">
-        <h1>Proces Verbal de Mentenanta</h1>
-        <p>Raport de verificare si mentenanta echipament</p>
-    </div>
-
-    <div class="summary">
-        <div class="summary-item">
-            <span class="summary-label">Task ID</span>
-            <span class="summary-value" th:text="${task.id}">-</span>
-        </div>
-
-        <div class="summary-item">
-            <span class="summary-label">Data programata</span>
-            <span class="summary-value" th:text="${task.scheduledDate}">-</span>
-        </div>
-
-        <div class="summary-item">
-            <span class="summary-label">Data efectuarii</span>
-            <span class="summary-value" th:text="${report.performedAt}">-</span>
-        </div>
-    </div>
+    <h1>Proces verbal de inspectie</h1>
+    <p class="subtitle">
+        Document intocmit in urma verificarii echipamentelor planificate.
+    </p>
 
     <div class="section">
-        <div class="section-title">1. Date echipament</div>
+        <p class="section-title">Date generale</p>
 
         <table class="info-table">
             <tr>
-                <td class="label">Denumire echipament</td>
-                <td class="value" th:text="${task.equipment.name}">-</td>
+                <th>Numar proces verbal</th>
+                <td th:text="${report.reportNumber}">Proces-Verbal-KYS-01052026</td>
             </tr>
+
             <tr>
-                <td class="label">Cod echipament</td>
-                <td class="value" th:text="${task.equipment.code}">-</td>
+                <th>Tip raport</th>
+                <td th:text="${report.reportType}">SINGLE_EQUIPMENT</td>
             </tr>
-            <tr th:if="${task.equipment.serialNumber != null}">
-                <td class="label">Serie echipament</td>
-                <td class="value" th:text="${task.equipment.serialNumber}">-</td>
+
+            <tr>
+                <th>Status raport</th>
+                <td th:text="${report.status}">DRAFT</td>
+            </tr>
+
+            <tr>
+                <th>Sablon raport</th>
+                <td th:text="${report.reportTemplateCode}">DEFAULT</td>
+            </tr>
+
+            <tr>
+                <th>Data generarii</th>
+                <td th:text="${#temporals.format(report.createdAt, 'dd.MM.yyyy HH:mm')}">01.05.2026 10:30</td>
             </tr>
         </table>
     </div>
 
     <div class="section">
-        <div class="section-title">2. Executant verificare</div>
+        <p class="section-title">Obiectul verificarii</p>
 
-        <table class="info-table">
+        <div class="declaration">
+            Prezentul proces verbal confirma efectuarea inspectiei pentru echipamentul sau echipamentele mentionate
+            mai jos. Verificarea a fost realizata pe baza informatiilor disponibile la momentul inspectiei, iar
+            observatiile consemnate reflecta constatarile efectuate de inginerul responsabil.
+        </div>
+    </div>
+
+    <div class="section">
+        <p class="section-title">Rezultatul inspectiei</p>
+
+        <table class="items-table">
+            <thead>
             <tr>
-                <td class="label">Inginer / tehnician</td>
-                <td class="value" th:text="${task.assignedEngineer.fullName}">-</td>
+                <th style="width: 4%;">#</th>
+                <th style="width: 18%;">Echipament</th>
+                <th style="width: 12%;">Cod</th>
+                <th style="width: 16%;">Inginer</th>
+                <th style="width: 12%;">Rezultat</th>
+                <th style="width: 24%;">Observatii</th>
+                <th style="width: 14%;">Data efectuarii</th>
             </tr>
-            <tr th:if="${task.assignedEngineer.email != null}">
-                <td class="label">Email</td>
-                <td class="value" th:text="${task.assignedEngineer.email}">-</td>
+            </thead>
+
+            <tbody>
+            <tr th:each="item, iterStat : ${items}">
+                <td th:text="${iterStat.index + 1}">1</td>
+
+                <td th:text="${item.inspectionTask.equipment.name}">
+                    Echipament
+                </td>
+
+                <td th:text="${item.inspectionTask.equipment.code != null ? item.inspectionTask.equipment.code : '-'}">
+                    KYS-001
+                </td>
+
+                <td th:text="${item.engineer != null ? item.engineer.fullName : '-'}">
+                    Inginer
+                </td>
+
+                <td>
+                    <span
+                            th:classappend="${
+                            item.result.name() == 'PASSED'
+                                ? ' result-passed'
+                                : (item.result.name() == 'FAILED'
+                                    ? ' result-failed'
+                                    : ' result-follow-up')
+                        }"
+                            class="result"
+                            th:text="${
+                            item.result.name() == 'PASSED'
+                                ? 'ADMIS'
+                                : (item.result.name() == 'FAILED'
+                                    ? 'RESPINS'
+                                    : 'FOLLOW-UP')
+                        }">
+                        ADMIS
+                    </span>
+                </td>
+
+                <td>
+                    <div
+                            class="observation-box"
+                            th:text="${item.observations != null && !#strings.isEmpty(item.observations) ? item.observations : 'Nu au fost consemnate observatii.'}">
+                        Observatii inspectie
+                    </div>
+                </td>
+
+                <td class="nowrap" th:text="${#temporals.format(item.performedAt, 'dd.MM.yyyy HH:mm')}">
+                    01.05.2026 10:30
+                </td>
             </tr>
+            </tbody>
         </table>
     </div>
 
     <div class="section">
-        <div class="section-title">3. Constatare si rezultat</div>
+        <p class="section-title">Concluzii</p>
 
-        <div class="statement-box">
-            <p class="statement">
-                Subsemnatul, reprezentant al Sweetbug Solutions S.R.L, confirm efectuarea verificarii
-                de mentenanta pentru echipamentul mentionat in prezentul document, conform planificarii
-                si regulilor aplicabile de intretinere.
-            </p>
-
-            <div class="result-line">
-                <span class="result-label">Rezultat verificare:</span>
-                <span class="result-badge" th:text="${report.result}">-</span>
-            </div>
+        <div class="declaration">
+            In urma inspectiei, rezultatele si observatiile au fost consemnate in tabelul de mai sus.
+            In cazul echipamentelor marcate ca respinse sau care necesita follow-up, se recomanda efectuarea
+            actiunilor corective necesare si, dupa caz, programarea unei noi verificari.
         </div>
     </div>
 
     <div class="section">
-        <div class="section-title">4. Observatii</div>
+        <table class="signature-table">
+            <tr>
+                <td>
+                    <strong>Intocmit de</strong>
+                    <div class="signature-box">
+                        Nume si semnatura inginer
+                    </div>
+                </td>
 
-        <div class="observations-box" th:text="${report.observations}">
-            Observatiile completate vor aparea aici.
-        </div>
+                <td>
+                    <strong>Confirmat de</strong>
+                    <div class="signature-box">
+                        Nume si semnatura responsabil
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 
-    <div class="section">
-        <div class="section-title">5. Mentiuni finale</div>
-
-        <div class="notice-box">
-            Prezentul proces verbal a fost generat electronic pe baza datelor introduse in aplicatia
-            de mentenanta. Documentul confirma efectuarea verificarii pentru task-ul identificat mai sus
-            si poate fi utilizat ca dovada interna a interventiei.
-        </div>
+    <div class="footer">
+        Document generat automat de sistemul de planificare si evidenta inspectii.
     </div>
-
-    <div class="signatures">
-        <div class="signature">
-            <div class="signature-line">Semnatura inginer / tehnician</div>
-            <div class="signature-helper">Nume, semnatura si data</div>
-        </div>
-
-        <div class="signature">
-            <div class="signature-line">Semnatura beneficiar / reprezentant</div>
-            <div class="signature-helper">Nume, semnatura si data</div>
-        </div>
-    </div>
-
 
 </div>
 </body>

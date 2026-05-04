@@ -26,6 +26,10 @@ spring:
     username: ""
     password: ""
 
+brevo:
+  api-key:
+  base-url: "https://api.brevo.com/v3"
+
 app:
   maintenance:
     season-active-months:

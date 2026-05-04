@@ -8,11 +8,11 @@ object PlannerUtils {
         eligibleDates: List<LocalDate>,
         targetCount: Int
     ): List<LocalDate> {
-        require(targetCount >= 0) {
-            "targetCount cannot be negative"
+        require(targetCount > 0) {
+            "targetCount must be greater than 0"
         }
 
-        if (targetCount == 0 || eligibleDates.isEmpty()) {
+        if (eligibleDates.isEmpty()) {
             return emptyList()
         }
 
@@ -25,11 +25,12 @@ object PlannerUtils {
         }
 
         val lastIndex = eligibleDates.lastIndex
+        val step = lastIndex.toDouble() / (targetCount - 1)
 
         return (0 until targetCount)
             .map { index ->
-                val selectedIndex = ((index.toDouble() * lastIndex) / (targetCount - 1)).roundToInt()
-                eligibleDates[selectedIndex]
+                val dateIndex = (index * step).roundToInt()
+                eligibleDates[dateIndex]
             }
             .distinct()
     }
